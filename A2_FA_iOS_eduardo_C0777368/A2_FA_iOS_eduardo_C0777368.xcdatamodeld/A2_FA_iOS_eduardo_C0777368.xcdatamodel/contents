@@ -5,14 +5,19 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="p_description" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="provider" optional="YES" attributeType="String"/>
+        <relationship name="parentProvider" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Provider" inverseName="products" inverseEntity="Provider"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="id"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="Provider" representedClassName="Provider" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Product" inverseName="parentProvider" inverseEntity="Product"/>
+    </entity>
     <elements>
         <element name="Product" positionX="-45" positionY="0" width="128" height="118"/>
+        <element name="Provider" positionX="-36" positionY="45" width="128" height="73"/>
     </elements>
 </model>
