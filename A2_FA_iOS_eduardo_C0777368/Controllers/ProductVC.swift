@@ -23,6 +23,11 @@ class ProductVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        idTxt.text = ""
+        nameTxt.text = ""
+        providerTxt.text = ""
+        priceTxt.text = ""
+        pDescriptionTxt.text = ""
         
         if selectedProduct != nil{
             idTxt.text = selectedProduct?.id // sets the id into the label

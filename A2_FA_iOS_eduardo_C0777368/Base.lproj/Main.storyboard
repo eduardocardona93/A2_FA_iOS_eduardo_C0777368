@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="view_cell" editingAccessoryType="disclosureIndicator" textLabel="SzU-fD-XJ5" detailTextLabel="TtM-7f-Wob" rowHeight="67" style="IBUITableViewCellStyleValue1" id="ehf-Wz-i0u">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="view_cell" editingAccessoryType="disclosureIndicator" textLabel="SzU-fD-XJ5" detailTextLabel="TtM-7f-Wob" rowHeight="67" style="IBUITableViewCellStyleSubtitle" id="ehf-Wz-i0u">
                                 <rect key="frame" x="0.0" y="28" width="428" height="67"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ehf-Wz-i0u" id="2cW-FP-3tC">
@@ -25,16 +25,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SzU-fD-XJ5">
-                                            <rect key="frame" x="20" y="24" width="33" height="20.333333333333332"/>
+                                            <rect key="frame" x="20" y="13.999999999999998" width="33" height="20.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TtM-7f-Wob">
-                                            <rect key="frame" x="364.33333333333331" y="24" width="43.666666666666664" height="20.333333333333332"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TtM-7f-Wob">
+                                            <rect key="frame" x="19.999999999999996" y="37.333333333333329" width="32.666666666666664" height="14.333333333333334"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -49,12 +49,6 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem enabled="NO" systemItem="trash" id="ezL-jL-7S5">
-                            <color key="tintColor" systemColor="systemRedColor"/>
-                            <connections>
-                                <action selector="deleteClick:" destination="iFG-WS-5MG" id="wIl-cy-bW3"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="R5Q-nM-SQ4"/>
                         <barButtonItem title="Item" image="square.stack.3d.up.fill" catalog="system" id="6vb-CJ-lOO">
                             <connections>
@@ -76,7 +70,6 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="deleteBtn" destination="ezL-jL-7S5" id="4bp-kb-W1x"/>
                         <segue destination="OVA-0o-HAs" kind="presentation" identifier="toEditProduct" id="XhP-5p-XQs"/>
                         <segue destination="7Xu-we-Chf" kind="show" identifier="toProviderProducts" id="WRc-3Y-V0L"/>
                     </connections>

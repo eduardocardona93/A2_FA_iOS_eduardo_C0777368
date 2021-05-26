@@ -45,9 +45,6 @@ class ProductTVC: UITableViewController {
         tableView.setEditing(selectMode, animated: true)
     }
     
-    @IBAction func deleteClick(_ sender: Any) {
-        
-    }
     @IBAction func changeMode(_ sender: UIBarItem) {
         if productMode {
             navigationItem.title = "Providers"
@@ -83,8 +80,8 @@ class ProductTVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "view_cell", for: indexPath) // gets the cell element
         
         if productMode {
-            cell.textLabel?.text = products[indexPath.row].name! + " (" + products[indexPath.row].id! + ")" // sets the title as the product name and id
-            cell.detailTextLabel?.text = String(products[indexPath.row].price )// sets the detail as the product price
+            cell.textLabel?.text = products[indexPath.row].name! // sets the title as the product name and id
+            cell.detailTextLabel?.text = String((products[indexPath.row].parentProvider?.name)! )// sets the detail as the product price
         }else{
             cell.textLabel?.text = providers[indexPath.row].name! // sets the title as the product name and id
             cell.detailTextLabel?.text = String(providers[indexPath.row].products!.count )// sets the detail as the product price
@@ -254,7 +251,7 @@ class ProductTVC: UITableViewController {
 //MARK: - search bar delegate methods
 extension ProductTVC: UISearchBarDelegate {
     // when the text in text bar is changed
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchBar.text?.count == 0 { // if the search bar is empty
             loadProducts() // load all the products
             DispatchQueue.main.async {
@@ -272,6 +269,18 @@ extension ProductTVC: UISearchBarDelegate {
             }
 
         }
+    }
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        if productMode{
+            loadProducts()
+        }else{
+            loadProviders()
+            
+        }
+        
     }
 
 }

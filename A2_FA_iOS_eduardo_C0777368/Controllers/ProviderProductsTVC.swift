@@ -19,11 +19,6 @@ class ProviderProductsTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = selectedProvider?.name
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -41,7 +36,7 @@ class ProviderProductsTVC: UITableViewController {
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prov_prod_cell", for: indexPath)
-        cell.textLabel?.text = providerProducts[indexPath.row].name! + " (" + providerProducts[indexPath.row].id! + ")" // sets the title as the product name and id
+        cell.textLabel?.text = providerProducts[indexPath.row].name! // sets the title as the product name and id
 
         return cell
     }
