@@ -21,7 +21,6 @@ class ProductTVC: UITableViewController {
     var productMode = true
     var selectMode = false
     
-    @IBOutlet weak var deleteBtn: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         loadProviders()
@@ -36,7 +35,6 @@ class ProductTVC: UITableViewController {
     
     @IBAction func listEditClick(_ sender: Any) {
         selectMode = !selectMode
-        deleteBtn.isEnabled = !deleteBtn.isEnabled
         tableView.setEditing(selectMode, animated: true)
     }
     
@@ -199,7 +197,6 @@ class ProductTVC: UITableViewController {
     @IBAction func unwindToProductVC(_ unwindSegue: UIStoryboardSegue) {
         loadProviders()
         loadProducts()
-        tableView.setEditing(false, animated: true)
     }
     //MARK: - search bar functiion
     func showSearchBar() {
