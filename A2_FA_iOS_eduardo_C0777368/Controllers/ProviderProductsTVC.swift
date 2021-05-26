@@ -8,17 +8,32 @@
 import UIKit
 import CoreData
 class ProviderProductsTVC: UITableViewController {
-    var providerProducts = [Product]()
+    var providerProducts = [Product]() // list of provider products
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext // create the context to work with core data
     
     var selectedProvider: Provider? {
-        didSet {
-            loadProds()
+        didSet { // when the provider is set
+            loadProds() // load the products
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = selectedProvider?.name
+        navigationItem.title = selectedProvider?.name // sets the view title as the provider name
+    }
+    
+    func loadProds() {
+        let request: NSFetchRequest<Product> = Product.fetchRequest()  // get the request object
+        // set the predicate for searching  products by the selected provider name
+        let providerPredicate = NSPredicate(format: "parentProvider.name=%@", selectedProvider!.name!)
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)] // sort the request by name
+        request.predicate = providerPredicate // set the predicate to the request
+        
+        do {
+            providerProducts = try context.fetch(request) // fetch into the context and asign it to the provider products variable
+        } catch {
+            print("Error loading notes \(error.localizedDescription)") // in case of error print the error
+        }
+        tableView.reloadData() // reloads the table data
     }
     
     // MARK: - Table view data source
@@ -40,19 +55,7 @@ class ProviderProductsTVC: UITableViewController {
         
         return cell
     }
-    func loadProds() {
-        let request: NSFetchRequest<Product> = Product.fetchRequest()
-        let providerPredicate = NSPredicate(format: "parentProvider.name=%@", selectedProvider!.name!)
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        request.predicate = providerPredicate
-        
-        do {
-            providerProducts = try context.fetch(request)
-        } catch {
-            print("Error loading notes \(error.localizedDescription)")
-        }
-        tableView.reloadData()
-    }
+
     
     
 }
