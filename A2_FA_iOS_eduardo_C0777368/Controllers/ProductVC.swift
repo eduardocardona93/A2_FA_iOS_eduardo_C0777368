@@ -75,7 +75,7 @@ class ProductVC: UIViewController {
                 delegate?.products.append(selectedProduct!) // append the product to the array
             }else{
                 // if the provider has changed for an existing product, validate if this is the last product for this provider
-                if currProvider != nil && editProvider?.name != currProvider?.name && (currProvider?.products!.count)! < 2{
+                if currProvider != nil && editProvider?.name != currProvider?.name && (currProvider?.products!.count)! < 1{
                     delegate?.context.delete(currProvider!)  // delete the provider
                 }
             }

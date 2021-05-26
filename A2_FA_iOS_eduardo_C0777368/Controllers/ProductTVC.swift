@@ -67,19 +67,23 @@ class ProductTVC: UITableViewController {
         if productMode {
             cell.textLabel?.text = products[indexPath.row].name! // sets the title as the product name
             cell.detailTextLabel?.text = String((products[indexPath.row].parentProvider?.name)! )// sets the detail as the product provider
+            cell.imageView!.image = nil
         }else{
             cell.textLabel?.text = providers[indexPath.row].name! // sets the title as the provider name and id
             cell.detailTextLabel?.text = String(providers[indexPath.row].products!.count )// sets the detail as the provider amount of products
+            cell.imageView!.image = UIImage(systemName: "folder.fill")
         }
         
         if indexPath.row % 2 != 0{ // every 2th set the style to have an striped table
             cell.backgroundColor = .systemBlue //sets background blue
             cell.textLabel?.textColor = .white // sets title label color as white
             cell.detailTextLabel?.textColor = .white // sets detail label color as white
+            cell.imageView!.tintColor =  .white
         }else{
             cell.backgroundColor = .white //sets background blue
             cell.textLabel?.textColor = .systemBlue  // sets title label color as blue
             cell.detailTextLabel?.textColor = .systemBlue  // sets detail label color as blue
+            cell.imageView!.tintColor =  .systemBlue
         }
         return cell
     }

@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="view_cell" editingAccessoryType="disclosureIndicator" textLabel="SzU-fD-XJ5" detailTextLabel="TtM-7f-Wob" rowHeight="67" style="IBUITableViewCellStyleSubtitle" id="ehf-Wz-i0u">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="view_cell" editingAccessoryType="disclosureIndicator" textLabel="SzU-fD-XJ5" detailTextLabel="TtM-7f-Wob" imageView="RAU-ex-Rlg" rowHeight="67" style="IBUITableViewCellStyleSubtitle" id="ehf-Wz-i0u">
                                 <rect key="frame" x="0.0" y="28" width="414" height="67"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ehf-Wz-i0u" id="2cW-FP-3tC">
@@ -38,6 +38,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RAU-ex-Rlg">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemGray2Color"/>
