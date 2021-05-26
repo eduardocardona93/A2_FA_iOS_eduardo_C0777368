@@ -10,8 +10,7 @@ import CoreData
 
 class ProductVC: UIViewController {
     
-    var selectedProduct: Product? = nil// the selected product
-
+    var selectedProduct: Product? = nil // the selected product in case to be an edit process
     weak var delegate: ProductTVC?
     
     @IBOutlet weak var nameTxt: UITextField! // name label IBOutlet
@@ -28,24 +27,21 @@ class ProductVC: UIViewController {
         providerTxt.text = ""
         priceTxt.text = ""
         pDescriptionTxt.text = ""
-        
+        pDescriptionTxt.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+        pDescriptionTxt.layer.borderWidth = 1.0
+        pDescriptionTxt.layer.cornerRadius = 5.0
         if selectedProduct != nil{
             idTxt.text = selectedProduct?.id // sets the id into the label
             nameTxt.text = selectedProduct?.name // sets the name into the label
             providerTxt.text = selectedProduct?.parentProvider!.name // sets the provider into the label
-
+            
             priceTxt.text = String(selectedProduct!.price)// setsand formats the price into the label
             pDescriptionTxt.text = selectedProduct?.p_description // sets the description into the text view
         }
-        
-
     }
     
-    
-
     @IBAction func saveBtnClick(_ sender: Any) {
         var message = ""
-        
         if(idTxt.text?.count == 0) {
             message = "Please set an id for the product"
         }else if (nameTxt.text?.count == 0){
@@ -55,7 +51,6 @@ class ProductVC: UIViewController {
         }else if (priceTxt.text?.count == 0){
             message = "Please select a name for the product"
         }
-        
         if(message != "") {
             let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -81,11 +76,9 @@ class ProductVC: UIViewController {
             if selectedProduct == nil {
                 delegate?.products.append(selectedProduct!)
             }else{
-                
                 if currProvider != nil && editProvider?.name != currProvider?.name && (currProvider?.products!.count)! < 2{
-                   delegate?.context.delete(currProvider!)
+                    delegate?.context.delete(currProvider!)
                 }
-                
             }
             do {
                 try delegate?.context.save() // saves the context
@@ -93,14 +86,8 @@ class ProductVC: UIViewController {
                 print("Error saving the product \(error.localizedDescription)")  // in case of error print the error
             }
             performSegue(withIdentifier: "dismissToProductVC", sender: self)
-            
-                
-
-            }
-
         }
-    
-    
+    }
 
     @IBAction func cancelClick(_ sender: Any) {
         dismiss(animated: true, completion: nil)

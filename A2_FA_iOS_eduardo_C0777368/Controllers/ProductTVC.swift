@@ -9,11 +9,11 @@ import UIKit
 import CoreData
 
 class ProductTVC: UITableViewController {
-
+    
     var products = [Product]() // create the product array to populate the table
     var providers = [Provider]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext // create the context to work with core data
-
+    
     
     var selectedProduct: Product? = nil
     var selectedProvider: Provider? = nil
@@ -24,24 +24,19 @@ class ProductTVC: UITableViewController {
     @IBOutlet weak var deleteBtn: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        createProducts()
         loadProviders()
         loadProducts()
         showSearchBar() // shows and sets the search bar
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         loadProviders()
         loadProducts()
     }
-
+    
     @IBAction func listEditClick(_ sender: Any) {
         selectMode = !selectMode
-        
         deleteBtn.isEnabled = !deleteBtn.isEnabled
-        
         tableView.setEditing(selectMode, animated: true)
     }
     
@@ -55,8 +50,6 @@ class ProductTVC: UITableViewController {
         }
         productMode = !productMode
         tableView.reloadData()
-       
-
     }
     // MARK: - Table view functions
     
@@ -64,21 +57,18 @@ class ProductTVC: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if productMode{
             return products.count
         }else{
             return providers.count
-
         }
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "view_cell", for: indexPath) // gets the cell element
-        
         if productMode {
             cell.textLabel?.text = products[indexPath.row].name! // sets the title as the product name and id
             cell.detailTextLabel?.text = String((products[indexPath.row].parentProvider?.name)! )// sets the detail as the product price
@@ -86,8 +76,7 @@ class ProductTVC: UITableViewController {
             cell.textLabel?.text = providers[indexPath.row].name! // sets the title as the product name and id
             cell.detailTextLabel?.text = String(providers[indexPath.row].products!.count )// sets the detail as the product price
         }
-
-
+        
         if indexPath.row % 2 != 0{ // every 2th set the style to have an striped table
             cell.backgroundColor = .systemBlue //sets background blue
             cell.textLabel?.textColor = .white // sets title label color as white
@@ -97,7 +86,6 @@ class ProductTVC: UITableViewController {
             cell.textLabel?.textColor = .systemBlue  // sets title label color as blue
             cell.detailTextLabel?.textColor = .systemBlue  // sets detail label color as blue
         }
-        
         return cell
     }
     
@@ -118,11 +106,9 @@ class ProductTVC: UITableViewController {
                         deleteProvider(provider: provider)
                     }
                 }
-                
             }else{
                 deleteProvider(provider: providers[indexPath.row])
                 providers.remove(at: indexPath.row)
-                
             }
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -130,8 +116,6 @@ class ProductTVC: UITableViewController {
             loadProducts()
         } 
     }
-
-
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !selectMode {
@@ -144,6 +128,7 @@ class ProductTVC: UITableViewController {
             }
         }
     }
+    
     // MARK: - Save and load functions
     // loads products from core data
     func loadProducts(predicate: NSPredicate? = nil) {
@@ -154,11 +139,6 @@ class ProductTVC: UITableViewController {
         }
         do {
             products = try context.fetch(request) // fetch into the context and asign it to the products variable
-//            for prod in products{
-//                context.delete(prod)
-//            }
-//            try context.save()
-
         } catch {
             print("Error loading products \(error.localizedDescription)") // in case of error print the error
         }
@@ -180,11 +160,6 @@ class ProductTVC: UITableViewController {
         }
         do {
             providers = try context.fetch(request) // fetch into the context and asign it to the products variable
-//            for prov in providers{
-//                context.delete(prov)
-//            
-//            }
-//            try context.save()
         } catch {
             print("Error loading products \(error.localizedDescription)") // in case of error print the error
         }
@@ -210,27 +185,21 @@ class ProductTVC: UITableViewController {
     //MARK: - segue functions
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if let destination = segue.destination as? ProductVC  {
             destination.delegate = self// Get the new view controller using segue.destination. and validates if it is Product view
             if segue.identifier == "toEditProduct" {
                 destination.selectedProduct = selectedProduct  // Pass the selected product to the new view controller.
             }
-
         }
         if let destination = segue.destination as? ProviderProductsTVC  {
-            
             destination.selectedProvider = selectedProvider
         }
     }
-
-
     
     @IBAction func unwindToProductVC(_ unwindSegue: UIStoryboardSegue) {
-//        let sourceViewController = unwindSegue.source
         loadProviders()
         loadProducts()
-        // Use data from the view controller which initiated the unwind segue
+        tableView.setEditing(false, animated: true)
     }
     //MARK: - search bar functiion
     func showSearchBar() {
@@ -241,7 +210,6 @@ class ProductTVC: UITableViewController {
         }else{
             searchController.searchBar.placeholder = "Search Provider" // sets the search bar placeholder
         }
-        
         navigationItem.searchController = searchController // sets the search bar controller
         definesPresentationContext = true // sets the presentation context
         searchController.searchBar.searchTextField.textColor = .lightGray // sets the search bar text color
@@ -262,15 +230,12 @@ extension ProductTVC: UISearchBarDelegate {
             if productMode{
                 let predicate = NSPredicate(format: "%K CONTAINS[cd] %@ OR %K CONTAINS[cd] %@", argumentArray:["name", searchBar.text!, "p_description", searchBar.text!] )
                 loadProducts(predicate: predicate)  // loads products from core data
-
             }else{
                 let predicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray:["name", searchBar.text!] )
                 loadProviders(predicate: predicate)  // loads products from core data
             }
-
         }
     }
-    
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
@@ -278,9 +243,7 @@ extension ProductTVC: UISearchBarDelegate {
             loadProducts()
         }else{
             loadProviders()
-            
         }
-        
     }
-
+    
 }
